@@ -17,23 +17,28 @@ function App() {
   const addTaskDo = (event: React.MouseEvent) => {
     event.preventDefault();
 
-    const add = {
-      text: currentTask[0].task,
-      id: String(Math.random())
+    if (currentTask[0].task === '') {
+      const doList: string = 'Введите заметку!';
+      alert(doList)
+    } else {
+      const add = {
+        text: currentTask[0].task,
+        id: String(Math.random())
+      }
+      const newTasks = [...task]
+      newTasks.push(add);
+      setTask(newTasks);
     }
-    const newTasks = [...task]
-    newTasks.push(add);
-    setTask(newTasks);
   }
 
   const edit = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     const currentTaskCopy = [...currentTask];
-    const taskCopy = currentTask[0]
+    const taskCopy = currentTask[0];
+
     taskCopy.task = event.target.value;
     setCurrentTask(currentTaskCopy);
   }
-
 
   const deleteTask = (id: string) => {
     const index = task.findIndex(t => t.id === id);
@@ -60,7 +65,6 @@ function App() {
           />
         ))}
       </div>
-
     </div>
   );
 }
